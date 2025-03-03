@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "tsx watch --env-file .env src/server/app.ts",
     "seed": "tsx --env-file .env src/db/seed.ts",
-    "build": "tsup src"
+    "build": "tsup src",
+    "pretest": "npm run db:migrate:test",
+    "pretest:watch": "npm run db:migrate:test",
+    "db:migrate:test": "dotenv -e .env.test -- drizzle-kit migrate",
+    "test": "dotenv -e .env.test -- vitest run",
+    "test:watch": "dotenv -e .env.test -- vitest"
   },
   "keywords": [],
   "author": "",
@@ -13,8 +18,10 @@
   "description": "",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@faker-js/faker": "^9.5.0",
     "@fastify/cors": "^10.0.2",
     "@types/node": "^22.13.5",
+    "dotenv-cli": "^8.0.0",
     "drizzle-kit": "^0.30.5",
     "fastify-type-provider-zod": "^4.0.2",
     "tsup": "^8.3.6",
@@ -31,6 +38,7 @@
     "fastify": "^5.2.1",
     "jose": "^6.0.8",
     "postgres": "^3.4.5",
+    "vitest": "^3.0.7",
     "zod": "^3.24.2"
   }
 }
