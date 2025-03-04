@@ -8,13 +8,13 @@ import {
   getUserFromAccessToken,
 } from '@/modules/github-oauth'
 
-interface AuthenticateFromGithubService {
+interface AuthenticateFromGitHubCodeRequest {
   code: string
 }
 
 export async function authenticateFromGithubCode({
   code,
-}: AuthenticateFromGithubService) {
+}: AuthenticateFromGitHubCodeRequest) {
   const accessToken = await getAccessTokenFromCode(code)
   const githubUser = await getUserFromAccessToken(accessToken)
 
@@ -25,9 +25,9 @@ export async function authenticateFromGithubCode({
 
   let userId: string | null
 
-  const userAlredyExists = result.length > 0
+  const userAlreadyExists = result.length > 0
 
-  if (!userAlredyExists) {
+  if (userAlreadyExists) {
     userId = result[0].id
   } else {
     const [insertedUser] = await db
@@ -45,7 +45,5 @@ export async function authenticateFromGithubCode({
 
   const token = await authenticateUser(userId)
 
-  return {
-    token,
-  }
+  return { token }
 }
