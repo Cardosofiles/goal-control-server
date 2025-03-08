@@ -9,6 +9,8 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
+import { writeFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
 
 import { env } from '@/env'
 import { authenticateFromGithubRoute } from '@/server/routes/authenticate-from-github'
@@ -63,3 +65,15 @@ app
   .then(() => {
     console.log('🚀 HTTP server running 🔥')
   })
+
+if (env.NODE_ENV === 'development') {
+  const specFile = resolve(__dirname, '../../swagger.json')
+
+  app.ready().then(() => {
+    const spec = JSON.stringify(app.swagger(), null, 2)
+
+    writeFile(specFile, spec).then(() => {
+      console.log(`�� Swagger documentation generated at ${specFile} ��`)
+    })
+  })
+}
