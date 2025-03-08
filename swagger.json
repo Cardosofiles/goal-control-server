@@ -11,6 +11,7 @@
   "paths": {
     "/goals": {
       "post": {
+        "operationId": "createGoal",
         "tags": [
           "goals"
         ],
@@ -59,6 +60,7 @@
     },
     "/pending-goals": {
       "get": {
+        "operationId": "getPendingGoals",
         "tags": [
           "goals"
         ],
@@ -114,6 +116,7 @@
     },
     "/completions": {
       "post": {
+        "operationId": "createCompletion",
         "tags": [
           "goals"
         ],
@@ -156,6 +159,7 @@
     },
     "/summary": {
       "get": {
+        "operationId": "getWeekSummary",
         "tags": [
           "goals"
         ],
@@ -187,7 +191,8 @@
                           "type": "number"
                         },
                         "total": {
-                          "type": "number"
+                          "type": "number",
+                          "nullable": true
                         },
                         "goalsPerDay": {
                           "type": "object",
@@ -213,7 +218,8 @@
                               ],
                               "additionalProperties": false
                             }
-                          }
+                          },
+                          "nullable": true
                         }
                       },
                       "required": [
@@ -237,6 +243,7 @@
     },
     "/auth/github": {
       "post": {
+        "operationId": "authenticateFromGithub",
         "tags": [
           "auth"
         ],
@@ -285,6 +292,7 @@
     },
     "/profile": {
       "get": {
+        "operationId": "getProfile",
         "tags": [
           "auth"
         ],
@@ -338,6 +346,7 @@
     },
     "/profile/gamification": {
       "get": {
+        "operationId": "getUserExperienceAndLevel",
         "tags": [
           "users",
           "gamification"
